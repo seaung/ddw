@@ -122,19 +122,43 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-]
+#STATICFILES_DIRS = [
+#        os.path.join(BASE_DIR, 'static')
+#]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django-simpleui config
+
+# 设置主题
+SIMPLEUI_DEFAULT_THEME = 'e-blue.css'
+
+# 离线模式
+SIMPLEUI_STATIC_OFFLINE = True
+
+# 首页标题
+SIMPLEUI_TITLE = '敌敌畏'
+
+# Logo
+# SIMPLEUI_LOGO = ''
+
+# 服务器信息
+SIMPLEUI_HOME_INFO = False
+
+
+# 侧边导航配置
 SIMPLEUI_CONFIG = {
         'system_keep': False,
         'menu_display': ['Host Scan', ],
         'dynamic': True,
+        'menus': [{
+            'app': 'asset',
+            'name': '资产扫描',
+            'icon': 'fa-regular fa-sitemap',
+            'url': '',
+        }],
 }
