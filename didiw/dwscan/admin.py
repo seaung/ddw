@@ -2,15 +2,15 @@ from django.contrib import admin
 
 from django.db import transaction
 from django.contrib import admin, messages
-from dwscan.models import NMscannerModels, DNSBruteModels
+from dwscan.models import NMscannerResult, NMscannerTaskModels, DNSBruteTaskModels
 # Register your models here.
 
 
-@admin.register(NMscannerModels)
+@admin.register(NMscannerResult)
 class NMScannerAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(DNSBruteModels)
+@admin.register(DNSBruteTaskModels)
 class DnsBruteAdmin(admin.ModelAdmin):
     pass

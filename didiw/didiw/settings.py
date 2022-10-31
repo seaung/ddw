@@ -11,10 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, os.path.join(BASE_DIR, 'dnsapp'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'dwscan'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,6 +40,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'dwscan',
+    'dnsapp',
     'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -79,7 +87,7 @@ WSGI_APPLICATION = 'didiw.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR + "/" + 'db.sqlite3',
     }
 }
 
@@ -152,13 +160,25 @@ SIMPLEUI_HOME_INFO = False
 
 # 侧边导航配置
 SIMPLEUI_CONFIG = {
-        'system_keep': False,
-        'menu_display': ['Host Scan', ],
-        'dynamic': True,
-        'menus': [{
-            'app': 'asset',
-            'name': '资产扫描',
-            'icon': 'fa-regular fa-sitemap',
-            'url': '',
-        }],
+    # 是否使用系统默认菜单，自定义菜单时建议关闭。
+    'system_keep': False,
+
+    # 用于菜单排序和过滤, 不填此字段为默认排序和全部显示。空列表[] 为全部不显示.
+    'menu_display': ['主机资产扫描', 'DSN解析'],
+
+    # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时刷新展示菜单内容。
+    # 一般建议关闭。
+    'dynamic': True,
+    'menus': [
+        {
+            'app': 'auth',
+            'name': '系统配置管理',
+            'icon': 'fa fa-cog',
+        },
+        {
+            'name': '资产扫描管理',
+            'icon': 'fa fa-th-list',
+        },
+    ]
 }
+
