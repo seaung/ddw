@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 from django.contrib import admin, messages
-from dnsapp.models import DNSModels, DNSRecoders
+#from dnsapp.models import DNSModels, DNSRecoders
 from django.db import transaction
 
 
