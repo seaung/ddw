@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_beat',
-    'dns',
+    'dnsx',
     'burp',
 ]
 
@@ -126,6 +127,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 # 指定simpleui默认的主题,指定一个文件名，相对路径就从simpleui的theme目录读取
 SIMPLEUI_DEFAULT_THEME = 'admin.lte.css'
 
@@ -151,29 +154,39 @@ SIMPLEUI_TITLE = '敌敌畏'
 SIMPLEUI_HOME_INFO = False
 
 # 侧边导航配置
+import time
 SIMPLEUI_CONFIG = {
-    # 是否使用系统默认菜单，自定义菜单时建议关闭。
     'system_keep': False,
-
-    # 用于菜单排序和过滤, 不填此字段为默认排序和全部显示。空列表[] 为全部不显示.
-    'menu_display': ['主机资产扫描', 'DSN解析'],
-
-    # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时刷新展示菜单内容。
-    # 一般建议关闭。
-    'dynamic': True,
+    'menu_display': ['DNS管理', '测试', '权限认证', '动态菜单测试'],      # 开启排序和过滤功能, 不填此字段为默认排序和全部显示, 空列表[] 为全部不显示.
+    'dynamic': True,    # 设置是否开启动态菜单, 默认为False. 如果开启, 则会在每次用户登陆时动态展示菜单内容
     'menus': [
-        {
-            'app': 'auth',
-            'name': '系统配置管理',
-            'icon': 'fa fa-cog',
-        },
-        {
-            'name': '资产扫描管理',
-            'icon': 'fa fa-th-list',
-        },
-    ]
+    {
+        'app': 'dnsx',
+        'name': 'DNS管理',
+        'icon': 'fas fa-code',
+        'url': 'dnsx/dns/',
+        # 浏览器新标签中打开
+        'newTab': False,
+    },
+    {
+        'app': 'burp',
+        'name': '测试',
+        'icon': 'fas fa-code',
+        'url': 'burp/burp/',
+        # 浏览器新标签中打开
+        'newTab': False,
+    },
+    {
+        'app': 'auth',
+        'name': '权限认证',
+        'icon': 'fas fa-user-shield',
+        'models': [{
+            'name': '用户',
+            'icon': 'fa fa-user',
+            'url': 'auth/user/'
+        }]
+    }]
 }
-
 
 # celery相关配置信息
 CELERY_TIMEZONE = "asia/Shanghai"

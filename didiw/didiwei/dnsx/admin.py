@@ -24,3 +24,5 @@ class DNSAdmin(admin.ModelAdmin):
             dns_check_task.delay(dns.id)
         self.message_user(request, f'已触发 {len(queryset)} 个DNS记录的检查任务')
     check_dns_now.short_description = '执行DNS检查'
+
+# admin.site.register(DNS)
